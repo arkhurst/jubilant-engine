@@ -6,10 +6,10 @@ const mongoose = require('mongoose')
 const app = express();
 
 // connecting to mlab database
-mongoose.connect("mongodb+srv://adminDB:adminDB@projects-ybsru.gcp.mongodb.net/test?retryWrites=true&w=majority");
+mongoose.connect("mongodb+srv://adminUser:adminUser@cluster0-cdca8.mongodb.net/test?retryWrites=true&w=majority");
 mongoose.connection.once('open', () => {
     console.log('connected to database')
-})
+}).catch(err => console.log(err))
 
 // a middleware that let's you interact with the graphql, 
 app.use('/graphql', graphqlHTTP({
