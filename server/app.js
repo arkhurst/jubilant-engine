@@ -10,7 +10,8 @@ const app = express();
 app.use(cors())
 
 // connecting to mlab database
-mongoose.connect("mongodb+srv://adminUser:adminUser@cluster0-cdca8.mongodb.net/test?retryWrites=true&w=majority");
+mongoose.connect("mongodb+srv://adminUser:adminUser@cluster0-cdca8.mongodb.net/test?retryWrites=true&w=majority",
+ {useNewUrlParser: true, useUnifiedTopology: true},);
 mongoose.connection.once('open', () => {
     console.log('connected to database')
 }).catch(err => console.log(err))

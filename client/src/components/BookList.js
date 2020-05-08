@@ -8,7 +8,7 @@ const BookList = () => {
     const { loading, error, data} = useQuery(getBooksQuery);
 
     let displayBooks
-      if(loading) {
+      if(loading) { 
           displayBooks = (
             <p>Loading Books...</p>
           )
