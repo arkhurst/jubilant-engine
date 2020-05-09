@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import { getAuthorQuery, addBookMutation } from '../queries/queries';
+import { getAuthorQuery, addBookMutation, getBooksQuery } from '../queries/queries';
 
 const AddBook = () => {
     const [name, setName] = useState('');
     const [genre, setGenre] = useState('');
-    const [authorID, setAuthorID] = useState('');
-    const { data, loading, error } = useQuery(getAuthorQuery);
-    const [addBook] = useMutation(addBookMutation);
+    const [author, setAuthor] = useState('');
+    const { data, loading } = useQuery(getAuthorQuery);
+    const [addBook] = useMutation(addBookMutation, {
+        refetchQueries : mutationResult => [{ query:getBooksQuery }]
+    });
    
 
     let displayAuthors
@@ -30,7 +32,7 @@ const AddBook = () => {
 
     const submitForm = (e) => {
         e.preventDefault()
-        addBook({ variables: { name, genre, authorID }})
+        addBook({ variables: { type: name, type: genre, type: author }})
     }
 
     const handleBookName = (e) => {
@@ -40,7 +42,7 @@ const AddBook = () => {
         setGenre(e.target.value)
     }
     const handleAuthor = (e) => {
-        setAuthorID(e.target.value)
+        setAuthor(e.target.value)
     }
 
     return ( 
@@ -58,7 +60,7 @@ const AddBook = () => {
 
                <div className="field">
                 <label>Author:</label>
-                <select value={authorID} onChange={handleAuthor}>
+                <select value={author} onChange={handleAuthor}>
                     <option>--Select Author--</option>
                     {displayAuthors}
                 </select>
