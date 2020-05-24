@@ -46,7 +46,7 @@ const AddBook = () => {
     }
 
     return ( 
-            <form id="addBooks" onSubmit={submitForm}>
+            <form id="form" onSubmit={submitForm}>
 
                <div className="field">
                 <label>Book name:</label>
