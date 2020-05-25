@@ -3,6 +3,9 @@ const graphqlHTTP = require('express-graphql');
 const schema = require('./schema/schema');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const dotenv = require('dotenv');
+
+dotenv.config()
 
 const app = express();
 
@@ -10,8 +13,7 @@ const app = express();
 app.use(cors())
 
 // connecting to mlab database
-mongoose.connect("mongodb+srv://adminUser:adminUser@cluster0-cdca8.mongodb.net/test?retryWrites=true&w=majority",
- {useNewUrlParser: true, useUnifiedTopology: true},);
+mongoose.connect(process.env.DATABASE_URI,{useNewUrlParser: true, useUnifiedTopology: true},);
 mongoose.connection.once('open', () => {
     console.log('connected to database')
 }).catch(err => console.log(err))
